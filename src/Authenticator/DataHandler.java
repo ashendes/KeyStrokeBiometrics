@@ -19,7 +19,7 @@ public class DataHandler {
     public static final int KEY_DURATION_TOLERANCE = 25;
     public static final int DIGRAPH_DELAY_TOLERANCE = 30;
 
-    public static PropertyModel createPropertyModel(KeyEventHandler handler){
+    public static PropertyModel createPropertyModel(KeyEventHandler handler, String username){
         ConcurrentHashMap<Integer, Long> pressDuration = new ConcurrentHashMap<>();
         ConcurrentHashMap<Pair, Long> digraphDelay = new ConcurrentHashMap<>();
 
@@ -34,6 +34,7 @@ public class DataHandler {
         }
 
         PropertyModel newModel = new PropertyModel();
+        newModel.setUsername(username);
         newModel.setDigraphDelay(digraphDelay);
         newModel.setPressDuration(pressDuration);
         return newModel;

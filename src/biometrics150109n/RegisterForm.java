@@ -127,7 +127,7 @@ public class RegisterForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        PropertyModel newModel = DataHandler.createPropertyModel(keyHandler);
+        PropertyModel newModel = DataHandler.createPropertyModel(keyHandler, usernameText.getText());
         DataIO.saveData(newModel);
         new LoginForm().setVisible(true);this.dispose();
     }//GEN-LAST:event_btnRegisterActionPerformed

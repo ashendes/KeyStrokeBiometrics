@@ -56,10 +56,9 @@ public class KeyEventHandler {
      public void pressKey(KeyEvent keyEvent) {  
         Long time = System.currentTimeMillis();
         int currentKey = keyEvent.getKeyCode();
-    
+        pressedKeys.put(currentKey,time);
         if (prevKey != -1 && !pressedKeys.containsKey(prevKey)) {
-            long duration = time - prevKeyTimeOfRelease;
-            
+            long duration = time - prevKeyTimeOfRelease;            
             if (digraphCounts.containsKey(prevKey)) {
                 if (digraphCounts.get(prevKey).containsKey(currentKey)) {
                     digraphDelays.get(prevKey).put(currentKey, digraphDelays.get(prevKey).get(currentKey) + duration);
@@ -82,8 +81,7 @@ public class KeyEventHandler {
         
     public void releaseKey(KeyEvent keyEvent) {
         Long time = System.currentTimeMillis();
-        int currentKey = keyEvent.getKeyCode();
- 
+        int currentKey = keyEvent.getKeyCode(); 
         long duration = time - pressedKeys.get(currentKey);
         if (keyCounts.containsKey(currentKey)) {
             keyCounts.put(currentKey, keyCounts.get(currentKey) + 1);
@@ -92,7 +90,6 @@ public class KeyEventHandler {
             keyCounts.put(currentKey, 1);
             keyDurations.put(currentKey, duration);
         }           
-
         prevKeyTimeOfRelease = time;
         pressedKeys.remove(currentKey);        
     }

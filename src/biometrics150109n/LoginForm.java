@@ -41,9 +41,9 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnReset = new javax.swing.JButton();
         btnLogin = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextRef = new javax.swing.JTextArea();
         btnRegister = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        usernameText = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,22 +75,16 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
-        jTextRef.setEditable(false);
-        jTextRef.setColumns(20);
-        jTextRef.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextRef.setLineWrap(true);
-        jTextRef.setRows(5);
-        jTextRef.setText("This is a test text.");
-        jTextRef.setWrapStyleWord(true);
-        jTextRef.setEnabled(false);
-        jScrollPane2.setViewportView(jTextRef);
-
         btnRegister.setText("Register");
         btnRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegisterActionPerformed(evt);
             }
         });
+
+        usernameText.setColumns(20);
+        usernameText.setRows(5);
+        jScrollPane3.setViewportView(usernameText);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,27 +93,27 @@ public class LoginForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnRegister)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
                         .addComponent(btnLogin)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnReset))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(51, 51, 51)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -146,8 +140,8 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
- if (jTextRef.getText().equals(passwordText.getText())) {
-            PropertyModel newInput = DataHandler.createPropertyModel(keyhandler);
+        if (usernameText.getText().equals(passwordText.getText())) {
+            PropertyModel newInput = DataHandler.createPropertyModel(keyhandler, usernameText.getText());
             PropertyModel reference = DataIO.readData(newInput.getUsername());
             if (DataHandler.authenticate(newInput, reference)) {
                 JOptionPane.showMessageDialog(this, "Login successful. ");
@@ -179,8 +173,8 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JButton btnReset;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextRef;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea passwordText;
+    private javax.swing.JTextArea usernameText;
     // End of variables declaration//GEN-END:variables
 }

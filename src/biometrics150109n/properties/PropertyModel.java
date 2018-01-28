@@ -5,13 +5,14 @@
  */
 package biometrics150109n.properties;
 
+import java.io.Serializable;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  *
  * @author ASUS
  */
-public class PropertyModel {
+public class PropertyModel implements Serializable{
     private String username;   
     private ConcurrentHashMap<Integer, Long> pressDuration;
     private ConcurrentHashMap<Pair, Long> digraphDelay;
@@ -23,6 +24,10 @@ public class PropertyModel {
 
     public ConcurrentHashMap<Integer, Long> getPressDuration() {
         return pressDuration;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
     
     public String getUsername() {
