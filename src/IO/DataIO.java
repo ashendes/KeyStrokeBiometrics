@@ -6,6 +6,7 @@
 package IO;
 
 import biometrics150109n.properties.PropertyModel;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -23,7 +24,7 @@ import java.util.logging.Logger;
 public class DataIO {   
     
     public static void saveData(PropertyModel model){
-        try(FileOutputStream fileOutputStream = new FileOutputStream("C:\\Users\\ASUS\\Documents\\NetBeansProjects\\Biometrics150109N\\Users\\"+model.getUsername() + ".txt");
+        try(FileOutputStream fileOutputStream = new FileOutputStream("Users\\"+model.getUsername() + ".txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);)
         {
             objectOutputStream.writeObject(model);
@@ -35,7 +36,7 @@ public class DataIO {
     }
     
     public static PropertyModel readData(String username){
-        try (FileInputStream fileInputStream = new FileInputStream("C:\\Users\\ASUS\\Documents\\NetBeansProjects\\Biometrics150109N\\Users\\"+username + ".txt");
+        try (FileInputStream fileInputStream = new FileInputStream("Users\\"+username + ".txt");
              ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);)
         {
             PropertyModel model = (PropertyModel) objectInputStream.readObject();
@@ -47,6 +48,11 @@ public class DataIO {
         }
 
         return null;
+    }
+    
+    public static boolean checkFile(String username){
+        File temp = new File("Users\\"+username + ".txt");
+        return temp.exists();
     }
     
 }

@@ -5,11 +5,13 @@
  */
 package biometrics150109n.properties;
 
+import java.io.Serializable;
+
 /**
  *
  * @author ASUS
  */
-public class Pair {
+public class Pair implements Serializable{
     
     private final int predecessor;
     private final int current;

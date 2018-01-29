@@ -140,18 +140,18 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        if (usernameText.getText().equals(passwordText.getText())) {
+        if (DataIO.checkFile(usernameText.getText())) {
             PropertyModel newInput = DataHandler.createPropertyModel(keyhandler, usernameText.getText());
             PropertyModel reference = DataIO.readData(newInput.getUsername());
             if (DataHandler.authenticate(newInput, reference)) {
-                JOptionPane.showMessageDialog(this, "Login successful. ");
+                JOptionPane.showMessageDialog(this, "Login successful.");
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Login error. ", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
         } else {
-            JOptionPane.showMessageDialog(this, "Please enter the correct text. ");
+            JOptionPane.showMessageDialog(this, "Error is username.");
         }        
     }//GEN-LAST:event_btnLoginActionPerformed
 

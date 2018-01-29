@@ -8,6 +8,8 @@ package Authenticator;
 import biometrics150109n.properties.Pair;
 import biometrics150109n.properties.PropertyModel;
 import java.util.concurrent.ConcurrentHashMap;
+import static java.util.logging.Level.INFO;
+import java.util.logging.Logger;
 
 
 /**
@@ -15,21 +17,21 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author ASUS
  */
 public class DataHandler {
-    public static final double MATCH_TOLERANCE = 0.65;
+    public static final double MATCH_TOLERANCE = 0.6;
     public static final int KEY_DURATION_TOLERANCE = 25;
-    public static final int DIGRAPH_DELAY_TOLERANCE = 30;
+    public static final int DIGRAPH_DELAY_TOLERANCE = 100;
 
     public static PropertyModel createPropertyModel(KeyEventHandler handler, String username){
         ConcurrentHashMap<Integer, Long> pressDuration = new ConcurrentHashMap<>();
         ConcurrentHashMap<Pair, Long> digraphDelay = new ConcurrentHashMap<>();
 
-        for (int key1 : handler.getKeyCounts().keySet()) {
-            pressDuration.put(key1, handler.getKeyDurations().get(key1) / handler.getKeyCounts().get(key1));
+        for (int key : handler.getKeyCounts().keySet()) {
+            pressDuration.put(key, handler.getKeyDurations().get(key) / handler.getKeyCounts().get(key));
         }
-        for (int key : handler.getDigraphCounts().keySet()) {
-            for (Integer key2 : handler.getDigraphCounts().get(key).keySet()) {
-                Pair pi = new Pair(key, key2);
-                digraphDelay.put(pi, handler.getDigraphDelays().get(key).get(key2) / handler.getDigraphCounts().get(key).get(key2));
+        for (int key1 : handler.getDigraphCounts().keySet()) {
+            for (int key2 : handler.getDigraphCounts().get(key1).keySet()) {
+                Pair p = new Pair(key1, key2);
+                digraphDelay.put(p, handler.getDigraphDelays().get(key1).get(key2) / handler.getDigraphCounts().get(key1).get(key2));
             }
         }
 
@@ -56,7 +58,7 @@ public class DataHandler {
                     durationMismatches++;
                 }
             } else {
-                // durationMismatches++;
+                 durationMismatches++;
             }
         }
 
@@ -68,13 +70,15 @@ public class DataHandler {
                     delayMismatches++;
                 }
             } else {
-                // delayMismatches++;
+                 delayMismatches++;
             }
         }
-
-        double f = 1.5 * ((durationMatches / (durationMismatches * 1.0 + durationMatches))
-                + (delayMatches / (delayMatches * 1.0 + delayMismatches))) / 2.5;
-
+        Logger.getLogger(DataHandler.class.getName()).log(INFO, Integer.toString(durationMatches));
+        Logger.getLogger(DataHandler.class.getName()).log(INFO, Integer.toString(durationMismatches));
+        Logger.getLogger(DataHandler.class.getName()).log(INFO, Integer.toString(delayMatches));
+        Logger.getLogger(DataHandler.class.getName()).log(INFO, Integer.toString(delayMismatches));
+        double f = 0.5*((durationMatches/(durationMatches+durationMismatches))+(delayMatches/(delayMatches+delayMismatches)));
+        Logger.getLogger(DataHandler.class.getName()).log(INFO, Double.toString(f));
         return f >= MATCH_TOLERANCE;    
     }  
 }
