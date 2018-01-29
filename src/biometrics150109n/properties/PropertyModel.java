@@ -6,6 +6,7 @@
 package biometrics150109n.properties;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -15,11 +16,11 @@ import java.util.concurrent.ConcurrentHashMap;
 public class PropertyModel implements Serializable{
     private String username;   
     private ConcurrentHashMap<Integer, Long> pressDuration;
-    private ConcurrentHashMap<Pair, Long> digraphDelay;
+    private ArrayList<Long> digraphDelay;
     
     public PropertyModel(){
         pressDuration = new ConcurrentHashMap<>();
-        digraphDelay = new ConcurrentHashMap<>();
+        digraphDelay = new ArrayList<>();
     }
 
     public ConcurrentHashMap<Integer, Long> getPressDuration() {
@@ -38,11 +39,19 @@ public class PropertyModel implements Serializable{
         this.pressDuration = pressDuration;
     }
 
-    public ConcurrentHashMap<Pair, Long> getDigraphDelay() {
+    /*public ConcurrentHashMap<Pair, Long> getDigraphDelay() {
         return digraphDelay;
     }
 
     public void setDigraphDelay(ConcurrentHashMap<Pair, Long> digraphDelay) {
+        this.digraphDelay = digraphDelay;
+    }*/
+
+    public ArrayList<Long> getDigraphDelay() {
+        return digraphDelay;
+    }
+
+    public void setDigraphDelay(ArrayList<Long> digraphDelay) {
         this.digraphDelay = digraphDelay;
     }
 

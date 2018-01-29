@@ -6,6 +6,7 @@
 package Authenticator;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -21,7 +22,7 @@ public class KeyEventHandler {
     private final ConcurrentHashMap<Integer, Integer> keyCounts;    
     //private final ConcurrentHashMap<Integer, HashMap<Integer, Long>> digraphDelays;
     //private final ConcurrentHashMap<Integer, HashMap<Integer, Integer>> digraphCounts;
-    
+    private final ArrayList<Long> digraphDelays;
   
      public KeyEventHandler() {
         prevKey = -1;
@@ -31,6 +32,11 @@ public class KeyEventHandler {
         keyCounts = new ConcurrentHashMap<>();
         //digraphDelays = new ConcurrentHashMap<>();
         //digraphCounts = new ConcurrentHashMap<>();
+        digraphDelays = new ArrayList<>();
+    }
+
+    public ArrayList<Long> getDigraphDelays() {
+        return digraphDelays;
     }
 
     public ConcurrentHashMap<Integer, Long> getPressedKeys() {
@@ -71,6 +77,10 @@ public class KeyEventHandler {
                 digraphCounts.put(prevKey, secondGraphCount);
             }            
         }*/
+        if(prevKey != -1){
+            Long duration = time - prevKeyTimeOfRelease;    
+            digraphDelays.add(duration);
+        }
         
         prevKey = currentKey;
     }

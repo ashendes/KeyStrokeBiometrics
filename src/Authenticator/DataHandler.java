@@ -23,21 +23,23 @@ public class DataHandler {
 
     public static PropertyModel createPropertyModel(KeyEventHandler handler, String username){
         ConcurrentHashMap<Integer, Long> pressDuration = new ConcurrentHashMap<>();
-        ConcurrentHashMap<Pair, Long> digraphDelay = new ConcurrentHashMap<>();
+        //ConcurrentHashMap<Pair, Long> digraphDelay = new ConcurrentHashMap<>();
 
         for (int key : handler.getKeyCounts().keySet()) {
             pressDuration.put(key, handler.getKeyDurations().get(key) / handler.getKeyCounts().get(key));
         }
-        for (int key1 : handler.getDigraphCounts().keySet()) {
+        /*for (int key1 : handler.getDigraphCounts().keySet()) {
             for (int key2 : handler.getDigraphCounts().get(key1).keySet()) {
                 Pair p = new Pair(key1, key2);
                 digraphDelay.put(p, handler.getDigraphDelays().get(key1).get(key2) / handler.getDigraphCounts().get(key1).get(key2));
             }
-        }
+        }*/
+        
+        
 
         PropertyModel newModel = new PropertyModel();
         newModel.setUsername(username);
-        newModel.setDigraphDelay(digraphDelay);
+        newModel.setDigraphDelay(handler.getDigraphDelays());
         newModel.setPressDuration(pressDuration);
         return newModel;
     }
@@ -62,7 +64,7 @@ public class DataHandler {
             }
         }
 
-        for (Pair pair : newModel.getDigraphDelay().keySet()) {
+        /*for (Pair pair : newModel.getDigraphDelay().keySet()) {
             if (reference.getDigraphDelay().containsKey(pair)) {
                 if (Math.abs(reference.getDigraphDelay().get(pair) - newModel.getDigraphDelay().get(pair)) < DIGRAPH_DELAY_TOLERANCE) {
                     delayMatches++;
@@ -72,13 +74,24 @@ public class DataHandler {
             } else {
                  delayMismatches++;
             }
+        }*/
+        
+        for (int i=0;i<newModel.getDigraphDelay().size();i++){
+            if(Math.abs(reference.getDigraphDelay().get(i) - newModel.getDigraphDelay().get(i)) < DIGRAPH_DELAY_TOLERANCE){
+                delayMatches++;
+            }
+            else{
+                delayMismatches++;
+            }
         }
-        Logger.getLogger(DataHandler.class.getName()).log(INFO, Integer.toString(durationMatches));
-        Logger.getLogger(DataHandler.class.getName()).log(INFO, Integer.toString(durationMismatches));
-        Logger.getLogger(DataHandler.class.getName()).log(INFO, Integer.toString(delayMatches));
-        Logger.getLogger(DataHandler.class.getName()).log(INFO, Integer.toString(delayMismatches));
-        double f = 0.5*((durationMatches/(durationMatches+durationMismatches))+(delayMatches/(delayMatches+delayMismatches)));
-        Logger.getLogger(DataHandler.class.getName()).log(INFO, Double.toString(f));
+        
+        
+        Logger.getLogger(DataHandler.class.getName()).log(INFO, "duration match = " +Integer.toString(durationMatches));
+        Logger.getLogger(DataHandler.class.getName()).log(INFO, "duration mismatch = " +Integer.toString(durationMismatches));
+        Logger.getLogger(DataHandler.class.getName()).log(INFO, "delay match = " +Integer.toString(delayMatches));
+        Logger.getLogger(DataHandler.class.getName()).log(INFO, "delay mismatch = " +Integer.toString(delayMismatches));
+        double f = 0.5*(((double)durationMatches/(durationMatches+durationMismatches))+((double)delayMatches/(delayMatches+delayMismatches)));
+        Logger.getLogger(DataHandler.class.getName()).log(INFO, "f = " + Double.toString(f));
         return f >= MATCH_TOLERANCE;    
     }  
 }
