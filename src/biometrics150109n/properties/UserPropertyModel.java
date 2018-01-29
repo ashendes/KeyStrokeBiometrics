@@ -13,12 +13,21 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author ASUS
  */
-public class PropertyModel implements Serializable{
+public class UserPropertyModel implements Serializable{
     private String username;   
+    private String password;
     private ConcurrentHashMap<Integer, Long> pressDuration;
     private ArrayList<Long> digraphDelay;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
     
-    public PropertyModel(){
+    public UserPropertyModel(){
         pressDuration = new ConcurrentHashMap<>();
         digraphDelay = new ArrayList<>();
     }
@@ -38,14 +47,6 @@ public class PropertyModel implements Serializable{
     public void setPressDuration(ConcurrentHashMap<Integer, Long> pressDuration) {
         this.pressDuration = pressDuration;
     }
-
-    /*public ConcurrentHashMap<Pair, Long> getDigraphDelay() {
-        return digraphDelay;
-    }
-
-    public void setDigraphDelay(ConcurrentHashMap<Pair, Long> digraphDelay) {
-        this.digraphDelay = digraphDelay;
-    }*/
 
     public ArrayList<Long> getDigraphDelay() {
         return digraphDelay;

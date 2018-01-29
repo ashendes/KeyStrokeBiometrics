@@ -7,7 +7,6 @@ package Authenticator;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -20,8 +19,6 @@ public class KeyEventHandler {
     private final ConcurrentHashMap<Integer, Long> pressedKeys;
     private final ConcurrentHashMap<Integer, Long> keyDurations;
     private final ConcurrentHashMap<Integer, Integer> keyCounts;    
-    //private final ConcurrentHashMap<Integer, HashMap<Integer, Long>> digraphDelays;
-    //private final ConcurrentHashMap<Integer, HashMap<Integer, Integer>> digraphCounts;
     private final ArrayList<Long> digraphDelays;
   
      public KeyEventHandler() {
@@ -30,8 +27,6 @@ public class KeyEventHandler {
         pressedKeys = new ConcurrentHashMap<>();
         keyDurations = new ConcurrentHashMap<>();
         keyCounts = new ConcurrentHashMap<>();
-        //digraphDelays = new ConcurrentHashMap<>();
-        //digraphCounts = new ConcurrentHashMap<>();
         digraphDelays = new ArrayList<>();
     }
 
@@ -47,36 +42,11 @@ public class KeyEventHandler {
     }
     public ConcurrentHashMap<Integer, Integer> getKeyCounts() {        return keyCounts;
     }
-    /*public ConcurrentHashMap<Integer, HashMap<Integer, Long>> getDigraphDelays() {
-        return digraphDelays;
-    }
-    public ConcurrentHashMap<Integer, HashMap<Integer, Integer>> getDigraphCounts() {
-        return digraphCounts;
-    }*/
      
      public void pressKey(KeyEvent keyEvent) {  
         Long time = System.currentTimeMillis();
         int currentKey = keyEvent.getKeyCode();
         pressedKeys.put(currentKey,time);
-        /*if (prevKey != -1 && !pressedKeys.containsKey(prevKey)) {
-            long duration = time - prevKeyTimeOfRelease;            
-            if (digraphCounts.containsKey(prevKey)) {
-                if (digraphCounts.get(prevKey).containsKey(currentKey)) {
-                    digraphDelays.get(prevKey).put(currentKey, digraphDelays.get(prevKey).get(currentKey) + duration);
-                    digraphCounts.get(prevKey).put(currentKey, digraphCounts.get(prevKey).get(currentKey) + 1);
-                } else {
-                    digraphDelays.get(prevKey).put(currentKey, duration);
-                    digraphCounts.get(prevKey).put(currentKey, 1);
-                }
-            } else {
-                HashMap<Integer, Long> secondGraphDelay = new HashMap<>();
-                secondGraphDelay.put(currentKey, duration);
-                digraphDelays.put(prevKey, secondGraphDelay);
-                HashMap<Integer, Integer> secondGraphCount = new HashMap<>();
-                secondGraphCount.put(currentKey, 1);
-                digraphCounts.put(prevKey, secondGraphCount);
-            }            
-        }*/
         if(prevKey != -1){
             Long duration = time - prevKeyTimeOfRelease;    
             digraphDelays.add(duration);

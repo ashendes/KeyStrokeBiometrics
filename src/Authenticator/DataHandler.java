@@ -5,8 +5,7 @@
  */
 package Authenticator;
 
-import biometrics150109n.properties.Pair;
-import biometrics150109n.properties.PropertyModel;
+import biometrics150109n.properties.UserPropertyModel;
 import java.util.concurrent.ConcurrentHashMap;
 import static java.util.logging.Level.INFO;
 import java.util.logging.Logger;
@@ -17,35 +16,31 @@ import java.util.logging.Logger;
  * @author ASUS
  */
 public class DataHandler {
-    public static final double MATCH_TOLERANCE = 0.6;
+    public static final double MATCH_TOLERANCE = 0.7;
     public static final int KEY_DURATION_TOLERANCE = 25;
-    public static final int DIGRAPH_DELAY_TOLERANCE = 100;
+    public static final int DIGRAPH_DELAY_TOLERANCE = 50;
 
-    public static PropertyModel createPropertyModel(KeyEventHandler handler, String username){
+    public static UserPropertyModel createPropertyModel(KeyEventHandler handler, String username, String password){
         ConcurrentHashMap<Integer, Long> pressDuration = new ConcurrentHashMap<>();
-        //ConcurrentHashMap<Pair, Long> digraphDelay = new ConcurrentHashMap<>();
-
         for (int key : handler.getKeyCounts().keySet()) {
             pressDuration.put(key, handler.getKeyDurations().get(key) / handler.getKeyCounts().get(key));
-        }
-        /*for (int key1 : handler.getDigraphCounts().keySet()) {
-            for (int key2 : handler.getDigraphCounts().get(key1).keySet()) {
-                Pair p = new Pair(key1, key2);
-                digraphDelay.put(p, handler.getDigraphDelays().get(key1).get(key2) / handler.getDigraphCounts().get(key1).get(key2));
-            }
-        }*/
-        
-        
+        }    
 
-        PropertyModel newModel = new PropertyModel();
+        UserPropertyModel newModel = new UserPropertyModel();
         newModel.setUsername(username);
+        newModel.setPassword(password);
         newModel.setDigraphDelay(handler.getDigraphDelays());
         newModel.setPressDuration(pressDuration);
         return newModel;
     }
     
     
-    public static boolean authenticate(PropertyModel newModel, PropertyModel reference){
+    public static boolean authenticate(UserPropertyModel newModel, UserPropertyModel reference){
+        if (!newModel.getPassword().equals(reference.getPassword())){
+            Logger.getLogger(DataHandler.class.getName()).log(INFO, "Password mismatch " + newModel.getPassword() + " "  + reference.getPassword() );        
+            return false;
+        }
+        
         int durationMatches = 0;
         int durationMismatches = 0;
 
@@ -63,19 +58,6 @@ public class DataHandler {
                  durationMismatches++;
             }
         }
-
-        /*for (Pair pair : newModel.getDigraphDelay().keySet()) {
-            if (reference.getDigraphDelay().containsKey(pair)) {
-                if (Math.abs(reference.getDigraphDelay().get(pair) - newModel.getDigraphDelay().get(pair)) < DIGRAPH_DELAY_TOLERANCE) {
-                    delayMatches++;
-                } else {
-                    delayMismatches++;
-                }
-            } else {
-                 delayMismatches++;
-            }
-        }*/
-        
         for (int i=0;i<newModel.getDigraphDelay().size();i++){
             if(Math.abs(reference.getDigraphDelay().get(i) - newModel.getDigraphDelay().get(i)) < DIGRAPH_DELAY_TOLERANCE){
                 delayMatches++;
@@ -84,7 +66,6 @@ public class DataHandler {
                 delayMismatches++;
             }
         }
-        
         
         Logger.getLogger(DataHandler.class.getName()).log(INFO, "duration match = " +Integer.toString(durationMatches));
         Logger.getLogger(DataHandler.class.getName()).log(INFO, "duration mismatch = " +Integer.toString(durationMismatches));

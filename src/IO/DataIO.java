@@ -5,7 +5,7 @@
  */
 package IO;
 
-import biometrics150109n.properties.PropertyModel;
+import biometrics150109n.properties.UserPropertyModel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  */
 public class DataIO {   
     
-    public static void saveData(PropertyModel model){
+    public static void saveData(UserPropertyModel model){
         try(FileOutputStream fileOutputStream = new FileOutputStream("Users\\"+model.getUsername() + ".txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);)
         {
@@ -35,11 +35,11 @@ public class DataIO {
         }
     }
     
-    public static PropertyModel readData(String username){
+    public static UserPropertyModel readData(String username){
         try (FileInputStream fileInputStream = new FileInputStream("Users\\"+username + ".txt");
              ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);)
         {
-            PropertyModel model = (PropertyModel) objectInputStream.readObject();
+            UserPropertyModel model = (UserPropertyModel) objectInputStream.readObject();
             return model;
         } catch (FileNotFoundException ex) {
             Logger.getLogger(DataIO.class.getName()).log(Level.SEVERE, null, ex);

@@ -8,7 +8,7 @@ package biometrics150109n;
 import Authenticator.DataHandler;
 import Authenticator.KeyEventHandler;
 import IO.DataIO;
-import biometrics150109n.properties.PropertyModel;
+import biometrics150109n.properties.UserPropertyModel;
 
 /**
  *
@@ -127,9 +127,10 @@ public class RegisterForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        PropertyModel newModel = DataHandler.createPropertyModel(keyHandler, usernameText.getText());
+        UserPropertyModel newModel = DataHandler.createPropertyModel(keyHandler, usernameText.getText(), passwordText.getText());
         DataIO.saveData(newModel);
-        new LoginForm().setVisible(true);this.dispose();
+        new LoginForm().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     
