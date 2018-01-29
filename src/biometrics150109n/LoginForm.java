@@ -131,11 +131,17 @@ public class LoginForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        passwordText.setText("");
-        usernameText.setText("");
-        keyhandler = new KeyEventHandler();
+        resetAll();
     }//GEN-LAST:event_btnResetActionPerformed
-
+    private void resetPassword(){
+        passwordText.setText("");
+        keyhandler = new KeyEventHandler();
+    }
+    
+    private void resetAll(){       
+        usernameText.setText("");
+        resetPassword();
+    }
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         if (DataIO.checkFile(usernameText.getText())) {
             UserPropertyModel newInput = DataHandler.createPropertyModel(keyhandler, usernameText.getText(), passwordText.getText());
@@ -146,12 +152,15 @@ public class LoginForm extends javax.swing.JFrame {
                     this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Biometric authentication failed. ", "Error", JOptionPane.ERROR_MESSAGE);
+                    resetPassword();
                 } 
             } else {
                 JOptionPane.showMessageDialog(this, "Incorrect password.", "Error", JOptionPane.ERROR_MESSAGE);
+                resetPassword();
             }           
         } else {
             JOptionPane.showMessageDialog(this, "Username not registered.", "Error", JOptionPane.ERROR_MESSAGE);
+            resetAll();
         }        
     }//GEN-LAST:event_btnLoginActionPerformed
 

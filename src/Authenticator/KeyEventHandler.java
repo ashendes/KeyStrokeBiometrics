@@ -68,9 +68,6 @@ public class KeyEventHandler {
         }           
         prevKeyTimeOfRelease = time;
         pressedKeys.remove(currentKey);        
-    }
-    
-
-    
+    }   
      
 }

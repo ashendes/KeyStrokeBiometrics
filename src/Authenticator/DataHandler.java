@@ -47,7 +47,6 @@ public class DataHandler {
         
         int durationMatches = 0;
         int durationMismatches = 0;
-
         int delayMatches = 0;
         int delayMismatches = 0;
 

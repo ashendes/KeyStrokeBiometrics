@@ -13,23 +13,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SealedObject;
-
 
 /**
  *
  * @author ASUS
  */
 public class DataIO {   
+    private static final String directoryName = "\\users";
     
     public static void saveData(UserPropertyModel model){
-        try(FileOutputStream fileOutputStream = new FileOutputStream("Users\\"+model.getUsername() + ".txt");
+        checkDir();
+        try(FileOutputStream fileOutputStream = new FileOutputStream(model.getUsername() + ".txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);)
         {            
             objectOutputStream.writeObject(model);
@@ -42,7 +38,7 @@ public class DataIO {
     }
     
     public static UserPropertyModel readData(String username){
-        try (FileInputStream fileInputStream = new FileInputStream("Users\\"+username + ".txt");
+        try (FileInputStream fileInputStream = new FileInputStream(username + ".txt");
              ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);)
         {
             UserPropertyModel model = (UserPropertyModel) objectInputStream.readObject();
@@ -55,9 +51,15 @@ public class DataIO {
 
         return null;
     }
-    
+    public static void checkDir(){        
+        File dir = new File(directoryName);
+        if (!dir.exists()){
+            dir.mkdir();
+        }
+    }
     public static boolean checkFile(String username){
-        File temp = new File("Users\\"+username + ".txt");
+        checkDir();
+        File temp = new File(username + ".txt");
         return temp.exists();
     }
     
