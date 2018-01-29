@@ -23,8 +23,8 @@ public class LoginForm extends javax.swing.JFrame {
     
     KeyEventHandler keyhandler = new KeyEventHandler();
     public LoginForm() {
-        initComponents();
-        
+        initComponents();   
+        this.setTitle("Login form | KEYSTROKE BIOMETRICS");
     }
 
     /**
@@ -36,33 +36,22 @@ public class LoginForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        passwordText = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         btnReset = new javax.swing.JButton();
         btnLogin = new javax.swing.JButton();
         btnRegister = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        usernameText = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
+        usernameText = new javax.swing.JTextField();
+        passwordText = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        passwordText.setColumns(20);
-        passwordText.setRows(5);
-        passwordText.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                passwordTextKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                passwordTextKeyReleased(evt);
-            }
-        });
-        jScrollPane1.setViewportView(passwordText);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setResizable(false);
 
         jLabel1.setText("Password:");
 
         btnReset.setText("Reset");
+        btnReset.setNextFocusableComponent(btnRegister);
         btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnResetActionPerformed(evt);
@@ -70,6 +59,7 @@ public class LoginForm extends javax.swing.JFrame {
         });
 
         btnLogin.setText("Login");
+        btnLogin.setNextFocusableComponent(btnReset);
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
@@ -83,11 +73,16 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
-        usernameText.setColumns(20);
-        usernameText.setRows(5);
-        jScrollPane3.setViewportView(usernameText);
-
         jLabel2.setText("Username:");
+
+        passwordText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordTextKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                passwordTextKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -98,61 +93,55 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnRegister)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
                         .addComponent(btnLogin)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnReset))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1)))
+                        .addComponent(passwordText))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(usernameText)))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(usernameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addComponent(passwordText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegister)
                     .addComponent(btnLogin)
                     .addComponent(btnReset))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void passwordTextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordTextKeyPressed
-        keyhandler.pressKey(evt);
-    }//GEN-LAST:event_passwordTextKeyPressed
-
-    private void passwordTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordTextKeyReleased
-        keyhandler.releaseKey(evt);
-    }//GEN-LAST:event_passwordTextKeyReleased
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         passwordText.setText("");
+        usernameText.setText("");
         keyhandler = new KeyEventHandler();
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         if (DataIO.checkFile(usernameText.getText())) {
-            UserPropertyModel newInput = DataHandler.createPropertyModel(keyhandler, usernameText.getText(), passwordText.getText());
+            UserPropertyModel newInput = DataHandler.createPropertyModel(keyhandler, usernameText.getText().toString(), passwordText.getText().toString());
             UserPropertyModel reference = DataIO.readData(newInput.getUsername());
             if (DataHandler.authenticate(newInput, reference)) {
-                JOptionPane.showMessageDialog(this, "Login successful.");
+                JOptionPane.showMessageDialog(this, "Login successful.", "Welcome", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Login error. ", "Error", JOptionPane.ERROR_MESSAGE);
@@ -171,6 +160,14 @@ public class LoginForm extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_btnRegisterActionPerformed
 
+    private void passwordTextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordTextKeyPressed
+        keyhandler.pressKey(evt);
+    }//GEN-LAST:event_passwordTextKeyPressed
+
+    private void passwordTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordTextKeyReleased
+        keyhandler.releaseKey(evt);
+    }//GEN-LAST:event_passwordTextKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -181,9 +178,7 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JButton btnReset;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea passwordText;
-    private javax.swing.JTextArea usernameText;
+    private javax.swing.JTextField passwordText;
+    private javax.swing.JTextField usernameText;
     // End of variables declaration//GEN-END:variables
 }
