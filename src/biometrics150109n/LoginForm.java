@@ -138,17 +138,20 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         if (DataIO.checkFile(usernameText.getText())) {
-            UserPropertyModel newInput = DataHandler.createPropertyModel(keyhandler, usernameText.getText().toString(), passwordText.getText().toString());
+            UserPropertyModel newInput = DataHandler.createPropertyModel(keyhandler, usernameText.getText(), passwordText.getText());
             UserPropertyModel reference = DataIO.readData(newInput.getUsername());
-            if (DataHandler.authenticate(newInput, reference)) {
-                JOptionPane.showMessageDialog(this, "Login successful.", "Welcome", JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();
+            if (DataHandler.authenticatePassword(newInput, reference)){
+                if (DataHandler.authenticateBiometrics(newInput, reference)) {
+                    JOptionPane.showMessageDialog(this, "Login successful.", "Welcome", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Biometric authentication failed. ", "Error", JOptionPane.ERROR_MESSAGE);
+                } 
             } else {
-                JOptionPane.showMessageDialog(this, "Login error. ", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-
+                JOptionPane.showMessageDialog(this, "Incorrect password.", "Error", JOptionPane.ERROR_MESSAGE);
+            }           
         } else {
-            JOptionPane.showMessageDialog(this, "Error is username.");
+            JOptionPane.showMessageDialog(this, "Username not registered.", "Error", JOptionPane.ERROR_MESSAGE);
         }        
     }//GEN-LAST:event_btnLoginActionPerformed
 

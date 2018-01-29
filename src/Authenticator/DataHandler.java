@@ -34,12 +34,16 @@ public class DataHandler {
         return newModel;
     }
     
-    
-    public static boolean authenticate(UserPropertyModel newModel, UserPropertyModel reference){
+    public static boolean authenticatePassword(UserPropertyModel newModel, UserPropertyModel reference){
         if (!newModel.getPassword().equals(reference.getPassword())){
             Logger.getLogger(DataHandler.class.getName()).log(INFO, "Password mismatch " + newModel.getPassword() + " "  + reference.getPassword() );        
             return false;
+        } else {
+            return true;
         }
+    }
+    
+    public static boolean authenticateBiometrics(UserPropertyModel newModel, UserPropertyModel reference){       
         
         int durationMatches = 0;
         int durationMismatches = 0;

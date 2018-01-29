@@ -13,8 +13,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SealedObject;
 
 
 /**
@@ -26,13 +31,14 @@ public class DataIO {
     public static void saveData(UserPropertyModel model){
         try(FileOutputStream fileOutputStream = new FileOutputStream("Users\\"+model.getUsername() + ".txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);)
-        {
+        {            
             objectOutputStream.writeObject(model);
+            //Cryptographer.encryptedSave(model, fileOutputStream);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(DataIO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(DataIO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }         
     }
     
     public static UserPropertyModel readData(String username){
